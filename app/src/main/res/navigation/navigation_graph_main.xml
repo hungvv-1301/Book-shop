@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_main.xml"
+    app:startDestination="@id/navigation_login">
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.atom.android.bookshop.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/navigation_bill"
+        android:name="com.atom.android.bookshop.ui.bill.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
+    <fragment
+        android:id="@+id/navigation_discount"
+        android:name="com.atom.android.bookshop.ui.discount.DiscountFragment"
+        android:label="fragment_discount"
+        tools:layout="@layout/fragment_discount" />
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.atom.android.bookshop.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.atom.android.bookshop.ui.authentication.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_forgot_password"
+            app:destination="@id/navigation_forgot_password" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@+id/navigation_login"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+
+        android:id="@+id/navigation_forgot_password"
+        android:name="com.atom.android.bookshop.ui.authentication.forgotpassword.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password">
+        <action
+            android:id="@+id/action_navigation_forgot_password_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+</navigation>

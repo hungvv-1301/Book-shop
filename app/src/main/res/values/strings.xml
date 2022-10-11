@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">BookShop</string>
+    <string name="title_home">Trang chủ</string>
+    <string name="title_discount">Mã voucher</string>
+    <string name="title_bill">Đơn hàng</string>
+    <string name="title_account">Tài khoản</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="error_call_api">Có lỗi xảy ra vui lòng thử lại!</string>
+    <string name="text_login_now">đăng nhập\nngay</string>
+    <string name="text_password">Mật khẩu</string>
+    <string name="text_email">Email</string>
+    <string name="text_login_OTP">Đăng nhập OTP</string>
+    <string name="text_forgot_password">Quên mật khẩu?</string>
+    <string name="text_login">đăng nhập</string>
+    <string name="text_hotline_support">Liên hệ hỗ trợ</string>
+    <string name="text_title_forgot_password">quên mật\nkhẩu</string>
+    <string name="text_confirm">xác nhận</string>
+    <string name="text_suggess_forgot_password">Vui lòng nhập đúng email đã đăng ký !</string>
+    <string name="text_error_validate_email">Email không hợp lệ !</string>
+    <string name="text_error_validate_password">Vui lòng nhập mật khẩu !</string>
+
 </resources>
