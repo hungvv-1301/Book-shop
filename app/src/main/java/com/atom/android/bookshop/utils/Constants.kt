@@ -11,4 +11,11 @@ object Constants {
     const val SHARED_PREF_DEFAULT_STRING = ""
     const val SHARED_PREF_TOKEN_LOGIN = PROJECT_NAME + "SHARED_PREF_TOKEN_LOGIN"
 
+    const val LINE_FEED = "\r\n"
+
+    const val FIRST_POSITION = 0
+    const val SIZE_SPAN_OF_TEXT = 1.2f
+    const val SIZE_SPAN_OF_NUMBER = 0.8f
+    const val TIME_REQUEST_FORGOT_PASS = 60000L
+    const val SECOND_TO_MIL = 1000L
 }

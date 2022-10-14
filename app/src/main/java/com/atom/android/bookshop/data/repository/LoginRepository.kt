@@ -1,10 +1,8 @@
 package com.atom.android.bookshop.data.repository
 
-import com.atom.android.bookshop.data.source.local.LoginLocalDataSource
+import com.atom.android.bookshop.data.source.ILoginDataSource
 import com.atom.android.bookshop.data.source.remote.IRequestCallback
 import com.atom.android.bookshop.data.source.remote.ResponseObject
-import com.atom.android.bookshop.data.source.ILoginDataSource
-import com.atom.android.bookshop.data.source.remote.login.LoginRemoteDataSource
 
 class LoginRepository(
     private val local: ILoginDataSource.Local,
@@ -32,5 +30,4 @@ class LoginRepository(
             instance ?: LoginRepository(localDataSource, remoteDataSource).also { instance = it }
         }
     }
-
 }

@@ -8,6 +8,7 @@ object ApiConstants {
         const val GENRE = "genre"
         const val PUBLISHER = "publisher"
         const val LOGIN = "login"
+        const val FORGOT_EMAIL = "forgot_password"
     }
 
     object Method {
@@ -30,18 +31,25 @@ object ApiConstants {
         const val ERROR_MESSAGE_BAD_URL = "Kết nối không hợp lệ"
         const val ERROR_MESSAGE_IO = "Dữ liệu không hợp lệ"
         const val ERROR_MESSAGE_JSON_CONVERT_FAILED = "Dữ liệu không hợp lệ"
+        const val ERROR_MESSAGE_FORBIDDEN = "Không có quyền truy cập"
     }
 
-    object ATTRIBUTE{
+    object FIELD {
+        const val EMAIL = "email"
+    }
+
+    object ATTRIBUTE {
         const val CONTENT_TYPE = "Content-Type"
         const val APPLICATION_JSON = "application/json"
+        const val APPLICATION_JSON_FORM = "application/x-www-form-urlencoded"
         const val ACCEPT = "Accept"
         const val CHARSET = "charset"
         const val AUTHORIZATION = "Authorization"
         const val BEARER = "Bearer"
         const val MODE_CHARSET = "utf-8"
     }
-    object DIALOGCONFIG{
+
+    object DIALOGCONFIG {
         const val MARGIN_Y = -170
     }
 }
