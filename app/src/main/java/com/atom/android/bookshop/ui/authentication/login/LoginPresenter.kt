@@ -8,6 +8,7 @@ import com.atom.android.bookshop.data.source.remote.ResponseObject
 import com.atom.android.bookshop.utils.Constants
 import com.atom.android.bookshop.utils.SharedPreferenceUtils
 import com.atom.android.bookshop.utils.isEmail
+import com.atom.android.bookshop.utils.putStringApply
 
 class LoginPresenter(
     private val repository: LoginRepository,
@@ -53,15 +54,16 @@ class LoginPresenter(
     }
 
     override fun saveToken(context: Context?, token: String?) {
-        SharedPreferenceUtils(context).putStringApply(Constants.SHARED_PREF_TOKEN_LOGIN, token)
+        SharedPreferenceUtils.getInstance(context)
+            ?.putStringApply(Constants.SHARED_PREF_TOKEN_LOGIN, token)
     }
 
     override fun onStart() {
-        // late impl
+        // TODO implement later
     }
 
     override fun onStop() {
-        // late impl
+        // TODO implement later
     }
 
     companion object {

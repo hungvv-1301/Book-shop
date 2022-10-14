@@ -1,13 +1,11 @@
-package com.atom.android.bookshop.data.source.remote.login
+package com.atom.android.bookshop.data.source.remote.main
 
-import com.atom.android.bookshop.data.model.LoginEntity
-import com.atom.android.bookshop.data.source.ILoginDataSource
+import com.atom.android.bookshop.data.source.IMainDataSource
 import com.atom.android.bookshop.data.source.remote.IRequestCallback
 import com.atom.android.bookshop.data.source.remote.ResponseObject
 import com.atom.android.bookshop.data.source.remote.api.ApiConstants
 import com.atom.android.bookshop.data.source.remote.api.ApiURL
 import com.atom.android.bookshop.data.source.remote.api.convertJsonToResponseObject
-import com.atom.android.bookshop.utils.convertToJson
 import com.atom.android.bookshop.utils.JSONConvertException
 import com.atom.android.bookshop.utils.handler
 import com.atom.android.bookshop.utils.httpConnection
@@ -15,34 +13,28 @@ import com.atom.android.bookshop.utils.remoteExecuteCallAPI
 import org.json.JSONException
 import org.json.JSONObject
 
-class LoginRemoteDataSource : ILoginDataSource.Remote {
+class MainRemoteDataSource : IMainDataSource.Remote {
 
-    override fun login(
-        email: String,
-        password: String,
-        callback: IRequestCallback<ResponseObject<String>>
-    ) {
-
-        val dataFormLogin = LoginEntity(email, password).convertToJson()
+    override fun checkToken(token: String?, callback: IRequestCallback<ResponseObject<String>>) {
         remoteExecuteCallAPI<ResponseObject<String>>(
-            dataFormLogin,
-            token = null,
-            callback,
-            ::getToken
+            dataForm = null,
+            token,
+            callback = callback,
+            handle = ::checkTokenLive
         )
     }
 
-    private fun getToken(
-        dataFormLogin: String?,
+    private fun checkTokenLive(
+        data: String?,
         token: String?,
         callback: IRequestCallback<ResponseObject<String>>
     ) {
 
         val jsonObjectResponseObject = JSONObject(
             httpConnection(
-                dataFormLogin,
-                ApiURL.pathLogin(),
-                ApiConstants.Method.POST,
+                formData = data,
+                ApiURL.pathCheckToken(),
+                ApiConstants.Method.GET,
                 token
             )
         )
@@ -66,9 +58,9 @@ class LoginRemoteDataSource : ILoginDataSource.Remote {
     }
 
     companion object {
-        private var instance: LoginRemoteDataSource? = null
+        private var instance: MainRemoteDataSource? = null
         fun getInstance() = synchronized(this) {
-            instance ?: LoginRemoteDataSource().also { instance = it }
+            instance ?: MainRemoteDataSource().also { instance = it }
         }
     }
 }

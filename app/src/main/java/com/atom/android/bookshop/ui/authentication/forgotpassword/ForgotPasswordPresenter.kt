@@ -43,11 +43,11 @@ class ForgotPasswordPresenter(
     }
 
     override fun onStart() {
-        // late impl
+        // TODO implement later
     }
 
     override fun onStop() {
-        // late impl
+        // TODO implement later
     }
 
     companion object {
@@ -56,9 +56,9 @@ class ForgotPasswordPresenter(
             repository: ForgotPasswordRepository,
             forgotPasswordView: ForgotPasswordContract.View
         ) = synchronized(this) {
-                instance ?: ForgotPasswordPresenter(repository, forgotPasswordView).also {
-                    instance = it
-                }
+            instance ?: ForgotPasswordPresenter(repository, forgotPasswordView).also {
+                instance = it
             }
+        }
     }
 }

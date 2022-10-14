@@ -2,14 +2,13 @@ package com.atom.android.bookshop.ui.authentication.forgotpassword
 
 import android.app.Dialog
 import android.os.CountDownTimer
-import androidx.navigation.Navigation
 import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseFragment
 import com.atom.android.bookshop.data.repository.ForgotPasswordRepository
 import com.atom.android.bookshop.data.source.remote.forgotpassword.ForgotPasswordRemoteDataSource
 import com.atom.android.bookshop.databinding.FragmentForgotPasswordBinding
+import com.atom.android.bookshop.ui.authentication.AuthenticationActivity
 import com.atom.android.bookshop.utils.Constants
-import com.atom.android.bookshop.utils.navigateSafe
 import com.atom.android.bookshop.utils.start
 import com.atom.android.bookshop.utils.textSpannable
 import com.atom.android.bookshop.utils.toast
@@ -37,18 +36,18 @@ class ForgotPasswordFragment :
                         R.string.text_second,
                         millisUntilFinished / Constants.SECOND_TO_MIL
                     )
-                binding.textViewNotification.text = context?.textSpannable(
+                binding?.textViewNotification?.text = context?.textSpannable(
                     messageWaitForSendRequest,
                     ((textSecond ?: (millisUntilFinished / Constants.SECOND_TO_MIL))).toString()
                 )
-                binding.btnForgotPassword.isEnabled = false
+                binding?.btnForgotPassword?.isEnabled = false
             }
 
             override fun onFinish() {
                 val messageRequireEmail =
                     context?.getString(R.string.text_suggest_forgot_password)
-                binding.textViewNotification.text = messageRequireEmail
-                binding.btnForgotPassword.isEnabled = true
+                binding?.textViewNotification?.text = messageRequireEmail
+                binding?.btnForgotPassword?.isEnabled = true
             }
         }
 
@@ -57,36 +56,30 @@ class ForgotPasswordFragment :
     }
 
     override fun initData() {
-        // late impl
+        // TODO implement later
     }
 
     override fun initialize() {
-        // late impl
+        // TODO implement later
     }
 
     override fun initView() {
-        // late impl
+        // TODO implement later
     }
 
     override fun initEvent() {
-        binding.textViewLogin.setOnClickListener {
-            navigate(R.id.action_navigation_forgot_password_to_navigation_login)
+        binding?.textViewLogin?.setOnClickListener {
+            val authenticationActivity = activity as AuthenticationActivity
+            authenticationActivity.navigate(AuthenticationActivity.POSITION_FRAGMENT_LOGIN)
         }
-        binding.btnForgotPassword.setOnClickListener {
-            val email = binding.textInputLayoutEmail.editText?.text.toString()
+        binding?.btnForgotPassword?.setOnClickListener {
+            val email = binding?.textInputLayoutEmail?.editText?.text.toString()
             forgotPresenter.requestForgotPassword(context, email)
         }
     }
 
     override fun navigate(action: Int) {
-        val navController = Navigation.findNavController(
-            requireActivity(),
-            R.id.nav_host_fragment_activity_main
-        )
-        val popBackStack = navController.popBackStack()
-        if (!popBackStack) {
-            navController.navigateSafe(action)
-        }
+        // TODO implement later
     }
 
     override fun requestSuccess(message: String?) {

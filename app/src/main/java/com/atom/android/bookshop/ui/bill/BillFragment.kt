@@ -13,24 +13,24 @@ import com.atom.android.bookshop.databinding.FragmentBillBinding
 class BillFragment : BaseFragment<FragmentBillBinding>(FragmentBillBinding::inflate) {
 
     override fun initData() {
-        // late impl
+        // TODO implement later
     }
 
     override fun initialize() {
-        // late impl
+        // TODO implement later
     }
 
     override fun initView() {
-        // late impl
+        // TODO implement later
     }
 
 
     override fun initEvent() {
-        // late impl
+        // TODO implement later
     }
 
     override fun navigate(action: Int) {
-        // late impl
+        // TODO implement later
     }
 
 }

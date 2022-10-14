@@ -1,13 +1,10 @@
 package com.atom.android.bookshop.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseActivity
 import com.atom.android.bookshop.databinding.ActivitySplashBinding
 import com.atom.android.bookshop.ui.main.MainActivity
-import java.util.*
+import java.util.Timer
 import kotlin.concurrent.schedule
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
@@ -21,17 +18,19 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
     }
 
-
     override fun initData() {
-        // late impl
+        // TODO implement later
     }
 
     override fun initEvent() {
-        // late impl
+        // TODO implement later
     }
 
     companion object {
         private const val DELAY_TIME = 1000L
     }
 
+    override fun navigate(position: Int) {
+        // TODO implement later
+    }
 }

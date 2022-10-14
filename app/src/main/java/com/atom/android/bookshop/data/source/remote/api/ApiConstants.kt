@@ -3,6 +3,8 @@ package com.atom.android.bookshop.data.source.remote.api
 object ApiConstants {
 
     object Endpoint {
+        const val GET_USER = "user"
+        const val CHECK_LOGIN = "login/check_login"
         const val BOOK = "book"
         const val AUTHOR = "author"
         const val GENRE = "genre"

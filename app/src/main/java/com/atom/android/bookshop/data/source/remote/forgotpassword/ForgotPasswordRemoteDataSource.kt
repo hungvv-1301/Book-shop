@@ -22,6 +22,7 @@ class ForgotPasswordRemoteDataSource : IForgotPasswordDataSource.Remote {
         val dataFormEmail = "${ApiConstants.FIELD.EMAIL}=$email"
         remoteExecuteCallAPI<ResponseObject<String>>(
             dataFormEmail,
+            token = null,
             callback = callback,
             handle = ::sendForgotPassword
         )
@@ -29,6 +30,7 @@ class ForgotPasswordRemoteDataSource : IForgotPasswordDataSource.Remote {
 
     private fun sendForgotPassword(
         dataFormEmail: String?,
+        token: String?,
         callback: IRequestCallback<ResponseObject<String>>
     ) {
 
@@ -36,7 +38,8 @@ class ForgotPasswordRemoteDataSource : IForgotPasswordDataSource.Remote {
             httpConnectionSendFormData(
                 dataFormEmail,
                 ApiURL.pathForgotEmail(),
-                ApiConstants.Method.POST
+                ApiConstants.Method.POST,
+                token
             )
         )
         try {
