@@ -1,41 +1,41 @@
-package com.atom.android.bookshop.data.source.remote.login
+package com.atom.android.bookshop.data.source.remote.forgotpassword
 
-import com.atom.android.bookshop.data.model.LoginEntity
-import com.atom.android.bookshop.data.source.ILoginDataSource
+import com.atom.android.bookshop.data.source.IForgotPasswordDataSource
 import com.atom.android.bookshop.data.source.remote.IRequestCallback
 import com.atom.android.bookshop.data.source.remote.ResponseObject
 import com.atom.android.bookshop.data.source.remote.api.ApiConstants
 import com.atom.android.bookshop.data.source.remote.api.ApiURL
 import com.atom.android.bookshop.data.source.remote.api.convertJsonToResponseObject
 import com.atom.android.bookshop.utils.JSONConvertException
-import com.atom.android.bookshop.utils.convertToJson
 import com.atom.android.bookshop.utils.handler
-import com.atom.android.bookshop.utils.httpConnection
+import com.atom.android.bookshop.utils.httpConnectionSendFormData
 import com.atom.android.bookshop.utils.remoteExecuteCallAPI
 import org.json.JSONException
 import org.json.JSONObject
 
-class LoginRemoteDataSource : ILoginDataSource.Remote {
+class ForgotPasswordRemoteDataSource : IForgotPasswordDataSource.Remote {
 
-    override fun login(
+    override fun requestForgotPassword(
         email: String,
-        password: String,
         callback: IRequestCallback<ResponseObject<String>>
     ) {
-
-        val dataFormLogin = LoginEntity(email, password).convertToJson()
-        remoteExecuteCallAPI<ResponseObject<String>>(dataFormLogin, callback, ::getToken)
+        val dataFormEmail = "${ApiConstants.FIELD.EMAIL}=$email"
+        remoteExecuteCallAPI<ResponseObject<String>>(
+            dataFormEmail,
+            callback = callback,
+            handle = ::sendForgotPassword
+        )
     }
 
-    private fun getToken(
-        dataFormLogin: String?,
+    private fun sendForgotPassword(
+        dataFormEmail: String?,
         callback: IRequestCallback<ResponseObject<String>>
     ) {
 
         val jsonObjectResponseObject = JSONObject(
-            httpConnection(
-                dataFormLogin,
-                ApiURL.pathLogin(),
+            httpConnectionSendFormData(
+                dataFormEmail,
+                ApiURL.pathForgotEmail(),
                 ApiConstants.Method.POST
             )
         )
@@ -59,10 +59,9 @@ class LoginRemoteDataSource : ILoginDataSource.Remote {
     }
 
     companion object {
-        private var instance: LoginRemoteDataSource? = null
-        fun getInstance(
-        ) = synchronized(this) {
-            instance ?: LoginRemoteDataSource().also { instance = it }
+        private var instance: ForgotPasswordRemoteDataSource? = null
+        fun getInstance() = synchronized(this) {
+            instance ?: ForgotPasswordRemoteDataSource().also { instance = it }
         }
     }
 }

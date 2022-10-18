@@ -7,9 +7,9 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 fun <T> remoteExecuteCallAPI(
-    dataForm: String,
+    dataForm: String? = null,
     callback: IRequestCallback<T>,
-    handle: (String, IRequestCallback<T>) -> Unit
+    handle: (String?, IRequestCallback<T>) -> Unit
 ) {
     val executor: ExecutorService = Executors.newSingleThreadExecutor()
     executor.submit(object : Runnable {
