@@ -10,9 +10,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // TODO implement later
     }
 
-    override fun initialize() {
-        // TODO implement later
-    }
 
     override fun initView() {
         // TODO implement later

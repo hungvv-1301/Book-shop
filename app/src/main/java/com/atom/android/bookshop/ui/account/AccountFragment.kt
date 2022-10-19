@@ -25,9 +25,6 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
         accountPresenter.getUser(context)
     }
 
-    override fun initialize() {
-        // TODO implement later
-    }
 
     override fun initView() {
         // TODO implement later

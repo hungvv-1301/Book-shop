@@ -21,7 +21,6 @@ class AccountPresenter(
             override fun onSuccess(responseObject: ResponseObject<User>) {
                 accountView.getUserSuccess(responseObject.data as User)
             }
-
             override fun onFailed(message: String?) {
                 accountView.getUserFailed(message)
             }
@@ -32,7 +31,6 @@ class AccountPresenter(
     override fun destroyToken(context: Context?) {
         SharedPreferenceUtils.getInstance(context)?.destroyToken()
     }
-
 
     override fun onStart() {
         // TODO implement later

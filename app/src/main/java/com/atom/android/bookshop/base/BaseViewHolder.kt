@@ -1,10 +1,10 @@
 package com.atom.android.bookshop.base
 
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 abstract class BaseViewHolder<T>(
-    binding: ViewDataBinding,
+    binding: ViewBinding,
     onClickItem: (T) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 

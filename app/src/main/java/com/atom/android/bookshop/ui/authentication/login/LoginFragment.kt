@@ -2,7 +2,6 @@ package com.atom.android.bookshop.ui.authentication.login
 
 import android.app.Dialog
 import android.content.Intent
-import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseFragment
 import com.atom.android.bookshop.data.repository.LoginRepository
 import com.atom.android.bookshop.data.source.local.LoginLocalDataSource
@@ -12,7 +11,6 @@ import com.atom.android.bookshop.ui.authentication.AuthenticationActivity
 import com.atom.android.bookshop.ui.main.MainActivity
 import com.atom.android.bookshop.utils.start
 import com.atom.android.bookshop.utils.toast
-
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate),
     LoginContract.View {
@@ -35,9 +33,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         // TODO implement later
     }
 
-    override fun initialize() {
-        // TODO implement later
-    }
 
     override fun initView() {
         // TODO implement later
@@ -53,7 +48,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             val password = binding?.textInputLayoutPassword?.editText?.text.toString()
             loginPresenter.login(context, email, password)
         }
-
     }
 
     override fun navigate(action: Int) {
@@ -67,7 +61,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         navigateToMainActivity()
     }
 
-    private fun navigateToMainActivity(){
+    private fun navigateToMainActivity() {
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()
@@ -77,5 +71,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         progessBar.dismiss()
         context?.toast(message)
     }
-
 }

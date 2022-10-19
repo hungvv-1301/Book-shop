@@ -21,8 +21,14 @@ object Constants {
     const val SECOND_TO_MIL = 1000L
     const val IS_TRUE = 1
 
-    const val FORMAT_DATE_TIME = "dd-MM-yyyy"
+    const val FORMAT_DATE_TIME = "dd-MM-yyyy '|' HH:mm:ss"
+    const val FORMAT_DATE_TIME_INPUT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
     const val DEFAULT_INT = 0
+    const val DEFAULT_DOUBLE = 0.0
     const val DEFAULT_STRING = ""
+    const val DEFAULT_PAGE = 0
+    const val DOT = '.'
+    const val CURRENCY_UNIT = 'đ'
+
 }

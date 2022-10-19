@@ -1,13 +1,13 @@
 package com.atom.android.bookshop.data.source.local
 
+import com.atom.android.bookshop.data.source.ILoginDataSource
 import com.atom.android.bookshop.data.source.remote.IRequestCallback
 import com.atom.android.bookshop.data.source.remote.ResponseObject
-import com.atom.android.bookshop.data.source.ILoginDataSource
 
 class LoginLocalDataSource : ILoginDataSource.Local {
 
     override fun checkLogin(callback: IRequestCallback<ResponseObject<String>>) {
-       // TODO implement later
+        // TODO implement later
     }
 
     companion object {
