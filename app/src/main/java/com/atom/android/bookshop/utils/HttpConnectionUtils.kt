@@ -1,9 +1,9 @@
 package com.atom.android.bookshop.utils
 
 import com.atom.android.bookshop.data.source.remote.api.ApiConstants
+import com.atom.android.bookshop.data.source.remote.api.ApiConstants.ERROR.ERROR_MESSAGE_FORBIDDEN
 import java.io.BufferedReader
 import java.io.FileNotFoundException
-import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -44,11 +44,13 @@ fun httpConnection(
             connect()
         }
 
-        content.append(connection.readJsonFromRequest())
+        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+            content.append(connection.readJsonFromRequest())
+        } else if (connection.responseCode == HttpURLConnection.HTTP_FORBIDDEN) {
+            throw HttpConnectionException(Exception(), ERROR_MESSAGE_FORBIDDEN)
+        }
     } catch (ex: UnknownHostException) {
         throw HttpConnectionException(ex) // timeout
-    } catch (ex: FileNotFoundException) {
-        throw HttpConnectionException(ex) // bad url
     } finally {
         connection?.disconnect()
     }

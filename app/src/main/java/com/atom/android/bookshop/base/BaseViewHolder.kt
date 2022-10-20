@@ -8,7 +8,7 @@ abstract class BaseViewHolder<T>(
     onClickItem: (T) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var item: T? = null;
+    private var item: T? = null
 
     init {
         itemView.setOnClickListener {

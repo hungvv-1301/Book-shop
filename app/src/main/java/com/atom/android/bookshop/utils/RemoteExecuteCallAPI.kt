@@ -8,14 +8,15 @@ import java.util.concurrent.Executors
 
 fun <T> remoteExecuteCallAPI(
     dataForm: String? = null,
+    token: String? = null,
     callback: IRequestCallback<T>,
-    handle: (String?, IRequestCallback<T>) -> Unit
+    handle: (String?, String?, IRequestCallback<T>) -> Unit
 ) {
     val executor: ExecutorService = Executors.newSingleThreadExecutor()
     executor.submit(object : Runnable {
         override fun run() {
             try {
-                handle(dataForm, callback)
+                handle(dataForm, token, callback)
             } catch (ex: HttpConnectionException) {
                 handler.post {
                     callback.onFailed(ex.message)
@@ -25,9 +26,7 @@ fun <T> remoteExecuteCallAPI(
                     callback.onFailed(ex.message)
                 }
             }
-
         }
-
     })
     executor.shutdown()
 }

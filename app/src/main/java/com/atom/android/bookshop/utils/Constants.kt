@@ -16,6 +16,13 @@ object Constants {
     const val FIRST_POSITION = 0
     const val SIZE_SPAN_OF_TEXT = 1.2f
     const val SIZE_SPAN_OF_NUMBER = 0.8f
+    const val SIZE_IMAGE = 120
     const val TIME_REQUEST_FORGOT_PASS = 60000L
     const val SECOND_TO_MIL = 1000L
+    const val IS_TRUE = 1
+
+    const val FORMAT_DATE_TIME = "dd-MM-yyyy"
+
+    const val DEFAULT_INT = 0
+    const val DEFAULT_STRING = ""
 }

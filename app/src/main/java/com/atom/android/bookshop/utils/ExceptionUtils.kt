@@ -11,4 +11,3 @@ class JSONConvertException(
     ex: Exception,
     message: String? = ApiConstants.ERROR.ERROR_MESSAGE_JSON_CONVERT_FAILED
 ) : Exception(message, ex)
-

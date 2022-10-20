@@ -23,5 +23,14 @@
     <string name="text_error_validate_password">Vui lòng nhập mật khẩu !</string>
     <string name="text_second">%d s</string>
     <string name="text_wait_for_send_request_forgot_password">Yêu cầu đã được gửi đi. Vui gửi lại sau </string>
+    <string name="text_some_thing">Some thing !</string>
+    <string name="title_notification">Thông báo</string>
+    <string name="title_statistical">Thống kê</string>
+    <string name="title_change_password">Thay đổi mật khẩu</string>
+    <string name="title_help">Trợ giúp</string>
+    <string name="text_logout">Đăng xuất</string>
+    <string name="title_alert_relogin">Phiên đăng nhập đã hết hạn</string>
+    <string name="mess_alert_relogin">Vui lòng đăng nhập lại để tiếp tục !</string>
+    <string name="text_mess_login_success">Đăng nhập thành công</string>
 
 </resources>

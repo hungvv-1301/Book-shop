@@ -1,6 +1,5 @@
 package com.atom.android.bookshop.utils
 
-
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,7 +8,6 @@ import android.view.Window
 import android.view.WindowManager
 import com.atom.android.bookshop.R
 import com.atom.android.bookshop.data.source.remote.api.ApiConstants
-
 
 fun Dialog.start(stopFlag: Boolean) { // stop progress
     this.let {

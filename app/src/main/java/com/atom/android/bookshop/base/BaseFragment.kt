@@ -13,7 +13,7 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
     Fragment() {
 
     private var _binding: VBinding? = null
-    protected val binding: VBinding get() = _binding as VBinding
+    protected val binding: VBinding? get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +26,12 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingLayoutInflater(inflater)
-        initView()
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initData()
         initEvent()
     }
@@ -45,9 +45,4 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
     abstract fun initEvent()
 
     abstract fun navigate(action: Int)
-
-    override fun onDestroy() {
-        _binding = null
-        super.onDestroy()
-    }
 }

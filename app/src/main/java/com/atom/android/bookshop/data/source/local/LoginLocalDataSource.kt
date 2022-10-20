@@ -7,13 +7,12 @@ import com.atom.android.bookshop.data.source.ILoginDataSource
 class LoginLocalDataSource : ILoginDataSource.Local {
 
     override fun checkLogin(callback: IRequestCallback<ResponseObject<String>>) {
-        // late impl
+       // TODO implement later
     }
 
     companion object {
         private var instance: LoginLocalDataSource? = null
-        fun getInstance(
-        ) = synchronized(this) {
+        fun getInstance() = synchronized(this) {
             instance ?: LoginLocalDataSource().also { instance = it }
         }
     }
