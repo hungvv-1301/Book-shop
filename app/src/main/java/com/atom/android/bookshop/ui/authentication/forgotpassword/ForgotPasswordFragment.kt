@@ -59,9 +59,6 @@ class ForgotPasswordFragment :
         // TODO implement later
     }
 
-    override fun initialize() {
-        // TODO implement later
-    }
 
     override fun initView() {
         // TODO implement later

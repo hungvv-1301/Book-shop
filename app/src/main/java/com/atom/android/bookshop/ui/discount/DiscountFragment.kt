@@ -9,9 +9,6 @@ class DiscountFragment : BaseFragment<FragmentDiscountBinding>(FragmentDiscountB
         // TODO implement later
     }
 
-    override fun initialize() {
-        // TODO implement later
-    }
 
     override fun initView() {
         // TODO implement later

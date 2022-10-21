@@ -73,7 +73,7 @@ fun httpConnectionSendFormData(
             requestMethod = method
             setRequestProperty(
                 ApiConstants.ATTRIBUTE.CONTENT_TYPE,
-                ApiConstants.ATTRIBUTE.APPLICATION_JSON_FORM
+                ApiConstants.ATTRIBUTE.APPLICATION_JSON
             )
             setRequestProperty(
                 ApiConstants.ATTRIBUTE.ACCEPT,
@@ -84,8 +84,11 @@ fun httpConnectionSendFormData(
                 ApiConstants.ATTRIBUTE.AUTHORIZATION,
                 "${ApiConstants.ATTRIBUTE.BEARER} $token"
             )
-            doOutput = true
-            writeJsonToBodyFrom(formData)
+            if (method == ApiConstants.Method.POST || method == ApiConstants.Method.PUT) {
+                doOutput = true
+                writeJsonToBodyFrom(formData)
+            }
+
             connect()
         }
 

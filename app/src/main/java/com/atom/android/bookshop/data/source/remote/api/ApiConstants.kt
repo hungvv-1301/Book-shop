@@ -4,13 +4,16 @@ object ApiConstants {
 
     object Endpoint {
         const val GET_USER = "user"
-        const val CHECK_LOGIN = "login/check_login"
+
         const val BOOK = "book"
         const val AUTHOR = "author"
         const val GENRE = "genre"
         const val PUBLISHER = "publisher"
         const val LOGIN = "login"
+        const val CHECK_LOGIN = "$LOGIN/check_login"
         const val FORGOT_EMAIL = "forgot_password"
+        const val ORDER = "order"
+        const val UPDATE_STATUS_BILL = "$ORDER/update_status"
     }
 
     object Method {
@@ -38,6 +41,8 @@ object ApiConstants {
 
     object FIELD {
         const val EMAIL = "email"
+        const val PAGE = "page"
+        const val TYPE = "type"
     }
 
     object ATTRIBUTE {
@@ -49,6 +54,14 @@ object ApiConstants {
         const val AUTHORIZATION = "Authorization"
         const val BEARER = "Bearer"
         const val MODE_CHARSET = "utf-8"
+    }
+
+    object TYPEOFBILL {
+        const val PENDING = 1
+        const val ACCEPT = 2
+        const val DELIVERY = 3
+        const val SUCCESS = 3
+        const val DESTROY = 5
     }
 
     object DIALOGCONFIG {

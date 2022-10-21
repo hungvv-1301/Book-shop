@@ -1,7 +1,16 @@
 package com.atom.android.bookshop.utils
 
-import com.atom.android.bookshop.data.model.LoginEntity
+import com.atom.android.bookshop.data.model.Book
+import com.atom.android.bookshop.data.model.ShippingMethod
+import com.atom.android.bookshop.data.model.Genre
 import com.atom.android.bookshop.data.model.User
+import com.atom.android.bookshop.data.model.Bill
+import com.atom.android.bookshop.data.model.OrderHistory
+import com.atom.android.bookshop.data.model.OrderLine
+import com.atom.android.bookshop.data.model.Author
+import com.atom.android.bookshop.data.model.LoginEntity
+import com.atom.android.bookshop.data.model.Status
+import org.json.JSONArray
 import org.json.JSONObject
 
 fun LoginEntity.convertToJson(): String {
@@ -35,5 +44,102 @@ fun JSONObject.getUser(): User {
         updatedAt,
         createdAt,
         confirmEmail == Constants.IS_TRUE
+    )
+}
+
+fun JSONObject.getBill(): Bill {
+
+    val id = this.getInt(User.ID) ?: Constants.DEFAULT_INT
+
+    val address = this.getString(Bill.ADDRESS) ?: Constants.DEFAULT_STRING
+    val note = this.getString(Bill.NOTE) ?: Constants.DEFAULT_STRING
+    val phone = this.getString(Bill.PHONE) ?: Constants.DEFAULT_STRING
+    val receiver = this.getString(Bill.RECEIVER) ?: Constants.DEFAULT_STRING
+    val createdAt = convertStringToDate(this.getString(Bill.CREATED_AT) ?: Constants.DEFAULT_STRING)
+
+    val jsonShippingMethod =
+        JSONObject(this.getString(Bill.SHIPPING_METHOD) ?: Constants.DEFAULT_STRING)
+    val shippingMethod = jsonShippingMethod.getShippingMethod()
+
+    val jsonHistoryArray =
+        JSONArray(this.getString(Bill.ORDER_HISTORIES) ?: Constants.DEFAULT_STRING)
+    val orderHistoryList = mutableListOf<OrderHistory>()
+    for (i in 0 until jsonHistoryArray.length()) {
+        val jsonObjectHistory = jsonHistoryArray.getJSONObject(i)
+        val orderHistory = jsonObjectHistory.getOrderHistory()
+        orderHistoryList.add(orderHistory)
+    }
+    val orderLines = mutableListOf<OrderLine>()
+    val jsonOrderLineArray =
+        JSONArray(this.getString(Bill.ORDER_LINES) ?: Constants.DEFAULT_STRING)
+    for (i in 0 until jsonOrderLineArray.length()) {
+        val jsonObjectOrderLine = jsonOrderLineArray.getJSONObject(i)
+        val orderLine = jsonObjectOrderLine.getOrderLine()
+        orderLines.add(orderLine)
+    }
+    return Bill(
+        id,
+        shippingMethod, address, note, phone, receiver, orderHistoryList, orderLines, createdAt
+    )
+}
+
+fun JSONObject.getShippingMethod(): ShippingMethod {
+    val cost = this.getDouble(ShippingMethod.ID) ?: Constants.DEFAULT_DOUBLE
+    val distanceAbove = this.getDouble(ShippingMethod.COST) ?: Constants.DEFAULT_DOUBLE
+    val id = this.getInt(ShippingMethod.ID) ?: Constants.DEFAULT_INT
+    val name = this.getString(ShippingMethod.NAME) ?: Constants.DEFAULT_STRING
+    return ShippingMethod(id, name, cost, distanceAbove)
+}
+
+fun JSONObject.getOrderHistory(): OrderHistory {
+    val reason = this.getString(OrderHistory.REASON) ?: Constants.DEFAULT_STRING
+    val statusDate =
+        convertStringToDate(this.getString(OrderHistory.STATUS_DATE) ?: Constants.DEFAULT_STRING)
+    val jsonObjectStatus =
+        JSONObject(this.getString(OrderHistory.STATUS) ?: Constants.DEFAULT_STRING)
+    val status = jsonObjectStatus.getStatus()
+    return OrderHistory(reason, status, statusDate)
+}
+
+fun JSONObject.getStatus(): Status {
+    val id = this.getInt(Status.ID) ?: Constants.DEFAULT_INT
+    val statusValue = this.getString(Status.STATUS_VALUE) ?: Constants.DEFAULT_STRING
+    return Status(id, statusValue)
+}
+
+fun JSONObject.getOrderLine(): OrderLine {
+    val amount = this.getInt(OrderLine.AMOUNT) ?: Constants.DEFAULT_INT
+    val jsonObjectBook = JSONObject(this.getString(OrderLine.BOOK) ?: Constants.DEFAULT_STRING)
+    val book = jsonObjectBook.getBook()
+    val price = this.getDouble(OrderLine.PRICE) ?: Constants.DEFAULT_DOUBLE
+    return OrderLine(amount, book, price)
+}
+
+fun JSONObject.getBook(): Book {
+    val id = this.getInt(Book.ID) ?: Constants.DEFAULT_INT
+    val title = this.getString(Book.TITLE) ?: Constants.DEFAULT_STRING
+    val image = this.getString(Book.IMAGE) ?: Constants.DEFAULT_STRING
+    val description = this.getString(Book.DESCRIPTION) ?: Constants.DEFAULT_STRING
+    val isbn = this.getString(Book.ISBN) ?: Constants.DEFAULT_STRING
+    val price = this.getDouble(Book.PRICE) ?: Constants.DEFAULT_DOUBLE
+    val numberPage = this.getInt(Book.NUM_PAGES) ?: Constants.DEFAULT_INT
+    val gender = mutableListOf<Genre>()
+    val author = mutableListOf<Author>()
+    val language = Constants.DEFAULT_STRING
+    val publisherDate = Constants.DEFAULT_STRING
+    val availableQuantity = this.getInt(Book.AVAILABLE_QUANTITY) ?: Constants.DEFAULT_INT
+    return Book(
+        id,
+        image,
+        isbn,
+        description,
+        gender,
+        language,
+        numberPage,
+        price,
+        publisherDate,
+        title,
+        availableQuantity,
+        author
     )
 }
