@@ -15,14 +15,17 @@ class BillRepository(private val remote: IBillDataSource.Remote) : IBillDataSour
     ) {
         remote.getBill(token, page, type, callback)
     }
+
     override fun updateStatusBill(
         token: String?,
         idBill: Int,
         status: Int,
+        reason: String?,
         callback: IRequestCallback<ResponseObject<Bill>>
     ) {
-        remote.updateStatusBill(token, idBill, status, callback)
+        remote.updateStatusBill(token, idBill, status, reason, callback)
     }
+
     companion object {
         private var instance: BillRepository? = null
         fun getInstance(

@@ -17,6 +17,7 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initData()
     }
 
     override fun onCreateView(
@@ -31,16 +32,12 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initData()
         initEvent()
     }
 
     abstract fun initData()
 
-
     abstract fun initView()
 
     abstract fun initEvent()
-
-    abstract fun navigate(action: Int)
 }

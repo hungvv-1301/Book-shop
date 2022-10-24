@@ -15,7 +15,6 @@ class LoginPresenter(
     private val loginView: LoginContract.View
 ) : LoginContract.Presenter {
 
-
     override fun login(
         context: Context?,
         email: String,

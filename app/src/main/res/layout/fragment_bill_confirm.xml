@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bill.pending.BillPendingFragment">
+    tools:context=".ui.bill.confirm.BillConfirmFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_bill_pending"
+            android:id="@+id/recyclerview_bill_confirm"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

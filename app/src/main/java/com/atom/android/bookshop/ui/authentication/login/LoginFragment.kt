@@ -33,14 +33,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         // TODO implement later
     }
 
-
     override fun initView() {
         // TODO implement later
     }
 
     override fun initEvent() {
         binding?.textViewForgotPassword?.setOnClickListener {
-            navigate(AuthenticationActivity.POSITION_FRAGMENT_FORGOT_PASSWORD)
+            val authenticationActivity = activity as AuthenticationActivity
+            authenticationActivity.navigate(AuthenticationActivity.POSITION_FRAGMENT_FORGOT_PASSWORD)
         }
         binding?.btnLogin?.setOnClickListener {
             progessBar.start(true)
@@ -48,11 +48,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             val password = binding?.textInputLayoutPassword?.editText?.text.toString()
             loginPresenter.login(context, email, password)
         }
-    }
-
-    override fun navigate(action: Int) {
-        val authenticationActivity = activity as AuthenticationActivity
-        authenticationActivity.navigate(action)
     }
 
     override fun loginSuccess(token: String?) {

@@ -1,15 +1,17 @@
 package com.atom.android.bookshop.utils
 
-import com.atom.android.bookshop.data.model.Book
-import com.atom.android.bookshop.data.model.ShippingMethod
-import com.atom.android.bookshop.data.model.Genre
-import com.atom.android.bookshop.data.model.User
+import com.atom.android.bookshop.data.model.Author
 import com.atom.android.bookshop.data.model.Bill
+import com.atom.android.bookshop.data.model.Book
+import com.atom.android.bookshop.data.model.Discount
+import com.atom.android.bookshop.data.model.DiscountEntity
+import com.atom.android.bookshop.data.model.Genre
+import com.atom.android.bookshop.data.model.LoginEntity
 import com.atom.android.bookshop.data.model.OrderHistory
 import com.atom.android.bookshop.data.model.OrderLine
-import com.atom.android.bookshop.data.model.Author
-import com.atom.android.bookshop.data.model.LoginEntity
+import com.atom.android.bookshop.data.model.ShippingMethod
 import com.atom.android.bookshop.data.model.Status
+import com.atom.android.bookshop.data.model.User
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -84,7 +86,7 @@ fun JSONObject.getBill(): Bill {
 }
 
 fun JSONObject.getShippingMethod(): ShippingMethod {
-    val cost = this.getDouble(ShippingMethod.ID) ?: Constants.DEFAULT_DOUBLE
+    val cost = this.getDouble(ShippingMethod.COST) ?: Constants.DEFAULT_DOUBLE
     val distanceAbove = this.getDouble(ShippingMethod.COST) ?: Constants.DEFAULT_DOUBLE
     val id = this.getInt(ShippingMethod.ID) ?: Constants.DEFAULT_INT
     val name = this.getString(ShippingMethod.NAME) ?: Constants.DEFAULT_STRING
@@ -142,4 +144,57 @@ fun JSONObject.getBook(): Book {
         availableQuantity,
         author
     )
+}
+
+fun JSONObject.getDiscount(): Discount {
+    val id = this.getInt(Discount.ID) ?: Constants.DEFAULT_INT
+    val name = this.getString(Discount.NAME) ?: Constants.DEFAULT_STRING
+    val value = this.getDouble(Discount.VALUE) ?: Constants.DEFAULT_DOUBLE
+    val code = this.getString(Discount.CODE) ?: Constants.DEFAULT_STRING
+    val amount = this.getInt(Discount.AMOUNT) ?: Constants.DEFAULT_INT
+    val image = this.getString(Discount.IMAGE) ?: Constants.DEFAULT_STRING
+    val createdAt =
+        convertStringToDate(this.getString(Discount.CREATED_AT) ?: Constants.DEFAULT_STRING)
+    val timeEnd = convertStringToDate(this.getString(Discount.TIME_END) ?: Constants.DEFAULT_STRING)
+    val timeStart =
+        convertStringToDate(this.getString(Discount.TIME_START) ?: Constants.DEFAULT_STRING)
+    val isVisible = this.getInt(Discount.IS_VISIBLE) ?: Constants.DEFAULT_INT
+    val enabled = this.getInt(Discount.ENABLED) ?: Constants.DEFAULT_INT
+    val stringJsonBook =
+        JSONArray(this.getString(Discount.BOOK_DISCOUNTS) ?: Constants.DEFAULT_STRING)
+    val books = mutableListOf<Book>()
+    for (i in 0 until stringJsonBook.length()) {
+        val jsonObjectBook = stringJsonBook.getJSONObject(i)
+        val book = jsonObjectBook.getBook()
+        books.add(book)
+    }
+    return Discount(
+        id,
+        name,
+        value,
+        code,
+        amount,
+        image,
+        createdAt,
+        timeEnd,
+        timeStart,
+        isVisible,
+        enabled,
+        books
+    )
+}
+
+fun DiscountEntity.convertToJson(): String {
+    val jsonObject = JSONObject().apply {
+        put(DiscountEntity.NAME, name)
+        put(DiscountEntity.VALUE, value)
+        put(DiscountEntity.CODE, code)
+        put(DiscountEntity.AMOUNT, amount)
+        put(DiscountEntity.IMAGE, image)
+        put(DiscountEntity.TIME_END, timeEnd)
+        put(DiscountEntity.TIME_START, timeStart)
+        put(DiscountEntity.IS_VISIBLE, isVisible)
+        put(DiscountEntity.ID_BOOK, idBook)
+    }
+    return jsonObject.toString()
 }

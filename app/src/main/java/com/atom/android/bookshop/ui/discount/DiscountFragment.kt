@@ -17,8 +17,4 @@ class DiscountFragment : BaseFragment<FragmentDiscountBinding>(FragmentDiscountB
     override fun initEvent() {
         // TODO implement later
     }
-
-    override fun navigate(action: Int) {
-        // TODO implement later
-    }
 }

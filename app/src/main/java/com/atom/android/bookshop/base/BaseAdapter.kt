@@ -1,7 +1,10 @@
 package com.atom.android.bookshop.base
 
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.atom.android.bookshop.utils.Constants
 
 abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
     diffUtil: DiffUtil.ItemCallback<T>
@@ -10,4 +13,28 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>>(
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.binView(getItem(position))
     }
+
+    fun addItem(bill: T) {
+        val newList = currentList.toMutableList()
+        newList.add(Constants.FIRST_POSITION, bill)
+        submitList(newList)
+    }
+
+    fun loadMore(recyclerView: RecyclerView?, handle: () -> Unit) {
+        recyclerView?.apply {
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
+                    val sizeData = recyclerView.adapter?.itemCount?.minus(1)
+                    if (linearLayoutManager != null &&
+                        linearLayoutManager.findLastCompletelyVisibleItemPosition() == sizeData
+                    ) {
+                        handle()
+                    }
+                }
+            })
+        }
+    }
+
 }
