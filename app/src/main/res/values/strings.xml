@@ -38,9 +38,9 @@
     <string name="text_title_bill"># %d | Đặt hàng lúc %s</string>
     <string name="text_content_bill">%s ..(%d sản phẩm)</string>
     <string name="text_content_discount">Mã %s</string>
-    <string name="text_confirm_failed">Xác nhận đơn hàng thất bại</string>
+    <string name="text_confirm_failed">Xác nhận đơn hàng thất bại (%s)</string>
     <string name="text_confirm_success">Xác nhận đơn hàng mã %d thành công</string>
-    <string name="text_destroy_failed">Hủy bỏ đơn hàng thất bại</string>
+    <string name="text_destroy_failed">Hủy bỏ đơn hàng thất bại (%s)</string>
     <string name="text_destroy_success">Đơn hủy đơn hàng mã %d</string>
     <string name="text_delivery_success">Xác nhận đơn hàng mã %d được vận chuyển</string>
     <string name="text_bill_delivery_done_success">Xác nhận đơn hàng mã %d giao thành công</string>
@@ -76,6 +76,30 @@
     <string name="mess_list_bill_empty">Hiện tại không có đơn nào trong trạng thái này !</string>
     <string name="mess_list_discount_empty">Hiện tại không có mã giảm giá nào trong trạng thái này !</string>
     <string name="permission_call_denied">Vui lòng cấp lại quyền gọi điện trong phần cài đặt</string>
+    <string name="text_title_name_discount">Tiêu đề </string>
+    <string name="text_title_value_discount">Giá trị (tiền)</string>
+    <string name="title_create_discount">Tạo mã giảm giá</string>
+    <string name="text_error_request_call">Yêu cầu cuộc gọi thất bại !</string>
+    <string name="text_title_code_discount">Code</string>
+    <string name="text_title_random_code_discount">Tự động sinh</string>
+    <string name="text_title_amount_discount">Số lượng</string>
+    <string name="text_title_time_start_discount">Thời gian bắt đầu áp dụng</string>
+    <string name="text_title_time_end_discount">Thời gian hết hạn</string>
+    <string name="text_type_visible_discount">Hiển thị với người dùng</string>
+    <string name="text_title_type_discount">Loại mã giảm giá</string>
+    <string name="text_type_invisible_discount">Chỉ sử dụng khi có code</string>
+    <string name="text_title_book_discount">Chọn sách áp dụng , (bỏ trống áp dụng toàn bộ)</string>
+    <string name="text_discount_created">Tạo mã giảm giá thành công</string>
+    <string name="text_validate_name_discount_failed">Vui lòng nhập tiêu đề cho mã giảm giá</string>
+    <string name="text_validate_value_discount_failed">Giá trị phải lớn hơn 1000</string>
+    <string name="text_validate_code_discount_failed">"Vui lòng nhập code 15 kí tự "</string>
+    <string name="text_validate_amount_discount_failed">Vui lòng nhập số lượng lớn hơn 0</string>
+    <string name="text_validate_time_start_discount_failed">Vui lòng nhập thời gian bắt đầu</string>
+    <string name="text_validate_time_end_discount_failed">Vui lòng nhập thời gian kết thúc</string>
+    <string name="text_validate_time_discount_failed">Ngày hết hạn phải sau ngày bắt đầu</string>
+    <string name="title_alert_lost_network">Lỗi mạng</string>
+    <string name="mess_alert_lost_network">Bạn đã mất kết nối mạng !</string>
+    <string name="text_connected_internet">Đã kết nối mạng</string>
 
 
 </resources>

@@ -10,6 +10,9 @@ import com.atom.android.bookshop.data.source.remote.bill.BillRemoteDataSource
 import com.atom.android.bookshop.databinding.FragmentBillConfirmBinding
 import com.atom.android.bookshop.ui.bill.BillFragment
 import com.atom.android.bookshop.ui.bill.detail.BillDetailFragment
+import com.atom.android.bookshop.utils.Constants
+import com.atom.android.bookshop.utils.SharedPreferenceUtils
+import com.atom.android.bookshop.utils.navigate
 import com.atom.android.bookshop.utils.toast
 
 class BillConfirmFragment :
@@ -22,7 +25,7 @@ class BillConfirmFragment :
             BillRepository.getInstance(
                 BillRemoteDataSource.getInstance()
             ),
-            this
+            SharedPreferenceUtils.getInstance(context)
         )
     }
 
@@ -30,11 +33,15 @@ class BillConfirmFragment :
         when (action) {
             Bill.ACTION_CONFIRM -> billConfirmPresenter.confirmShippingBill(context, bill)
             Bill.ACTION_CANCEL -> billConfirmPresenter.destroyBill(context, bill)
-            Bill.ACTION_ITEM -> navigateToDetailsFragment(bill)
+            Bill.ACTION_ITEM -> {
+                val fragmentDetail = BillDetailFragment.newInstance(bill)
+                activity?.navigate(fragmentDetail)
+            }
         }
     }
 
     override fun initData() {
+        billConfirmPresenter.setView(this)
         billConfirmPresenter.getBillConfirm(context, currentPage)
     }
 
@@ -48,30 +55,37 @@ class BillConfirmFragment :
             binding?.progressLoadingMore?.isVisible = true
             billConfirmPresenter.getBillConfirm(context, currentPage)
         }
+        binding?.swiperefreshlayout?.setOnRefreshListener {
+            currentPage = Constants.DEFAULT_PAGE
+            listAdapter.submitList(mutableListOf())
+            billConfirmPresenter.getBillConfirm(context, currentPage)
+        }
     }
 
     override fun getBillConfirmSuccess(bill: List<Bill>) {
         if (listAdapter.currentList.isEmpty() && bill.isEmpty()) {
-            visibleError()
+            visibleScreen(true)
             binding?.textViewGetBillFailed?.text = context?.getString(R.string.mess_list_bill_empty)
         } else {
             val newList = listAdapter.currentList.toMutableList()
             newList.addAll(bill)
             listAdapter.submitList(newList)
-            binding?.progressLoadingMore?.isVisible = false
+            visibleScreen(false)
         }
     }
 
     override fun getBillConfirmFailed(message: String?) {
-        visibleError()
+        context?.toast(message)
+        visibleScreen(true)
         binding?.textViewGetBillFailed?.text = context?.getString(R.string.text_get_bill_failed)
     }
 
-    private fun visibleError() {
+    private fun visibleScreen(isError: Boolean) {
         binding?.apply {
-            textViewGetBillFailed?.isVisible = true
-            recyclerviewBillConfirm?.isVisible = false
-            progressLoadingMore?.isVisible = false
+            textViewGetBillFailed.isVisible = isError
+            recyclerviewBillConfirm.isVisible = !isError
+            progressLoadingMore.isVisible = false
+            swiperefreshlayout.isRefreshing = false
         }
     }
 
@@ -87,18 +101,13 @@ class BillConfirmFragment :
         val newList = listAdapter.currentList.toMutableList()
         newList.remove(oldBill)
         listAdapter.submitList(newList)
+        visibleScreen(false)
         context?.toast(message)
-    }
-
-    private fun navigateToDetailsFragment(bill: Bill) {
-        val fragmentDetail = BillDetailFragment.newInstance(bill)
-        val beginTransaction = activity?.supportFragmentManager?.beginTransaction()
-        beginTransaction?.replace(R.id.fragment_container, fragmentDetail)
-            ?.addToBackStack(null)?.commit()
     }
 
     fun updateNewBill(bill: Bill) {
         listAdapter.addItem(bill)
+        visibleScreen(false)
     }
 
     companion object {
