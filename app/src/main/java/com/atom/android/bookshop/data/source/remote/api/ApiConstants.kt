@@ -38,6 +38,7 @@ object ApiConstants {
         const val ERROR_MESSAGE_IO = "Dữ liệu không hợp lệ"
         const val ERROR_MESSAGE_JSON_CONVERT_FAILED = "Dữ liệu không hợp lệ"
         const val ERROR_MESSAGE_FORBIDDEN = "Không có quyền truy cập"
+        const val ERROR_MESSAGE_NETWORK = "Không có kết nối mạng"
     }
 
     object FIELD {
@@ -67,7 +68,7 @@ object ApiConstants {
         const val LOST = 6
     }
 
-    object TYPEOFDISCOUNT{
+    object TYPEOFDISCOUNT {
         const val RUNNING = 0
         const val EXPIRED = 1
         const val DESTROY = 2
