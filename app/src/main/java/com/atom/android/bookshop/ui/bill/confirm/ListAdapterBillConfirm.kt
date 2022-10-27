@@ -1,23 +1,21 @@
-package com.atom.android.bookshop.ui.bill.pending
+package com.atom.android.bookshop.ui.bill.confirm
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseAdapter
 import com.atom.android.bookshop.base.BaseViewHolder
 import com.atom.android.bookshop.data.model.Bill
-import com.atom.android.bookshop.databinding.ItemBillBinding
+import com.atom.android.bookshop.databinding.ItemBillConfirmBinding
 import com.atom.android.bookshop.utils.Constants
-import com.atom.android.bookshop.utils.convertStrToMoney
 
-class ListAdapterBillPending(
+class ListAdapterBillConfirm(
     private val onClick: (Bill, action: Int) -> Unit
 ) : BaseAdapter<Bill, BaseViewHolder<Bill>>(Bill.DiffCallBackItemBill()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Bill> {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBillBinding.inflate(inflater, parent, false)
+        val binding = ItemBillConfirmBinding.inflate(inflater, parent, false)
         val titleBill = { idBill: Int, time: String ->
             parent.context.getString(
                 R.string.text_title_bill,
@@ -34,14 +32,27 @@ class ListAdapterBillPending(
             )
         }
 
-        return ViewHolder(binding, titleBill, contentBill)
+        val timeConfirm = { timeConfirm: String ->
+            parent.context.getString(
+                R.string.text_time_confirm,
+                timeConfirm
+            )
+        }
+
+        return ViewHolder(
+            binding,
+            titleBill,
+            contentBill,
+            timeConfirm
+        )
     }
 
 
     inner class ViewHolder(
-        val binding: ItemBillBinding,
+        val binding: ItemBillConfirmBinding,
         val titleBill: (Int, String) -> String,
         val contentBill: (String, Int) -> String,
+        val timeConfirm: (String) -> String
     ) :
         BaseViewHolder<Bill>(binding) {
         override fun binView(item: Bill) {
@@ -53,7 +64,7 @@ class ListAdapterBillPending(
                         item.orderLines[Constants.FIRST_POSITION].book.title,
                         item.totalItem()
                     )
-                titleTotalMoney.text = item.totalBill().toString().convertStrToMoney()
+                textViewTimeConfirm.text = timeConfirm(item.getTimeConfirmed())
                 textViewConfirm.setOnClickListener {
                     onClick(item, Bill.ACTION_CONFIRM)
                 }
@@ -66,4 +77,5 @@ class ListAdapterBillPending(
             }
         }
     }
+
 }

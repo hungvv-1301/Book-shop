@@ -1,5 +1,9 @@
 package com.atom.android.bookshop.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Book(
     val id: Int,
     val image: String,
@@ -13,7 +17,7 @@ data class Book(
     val title: String,
     val availableQuantity: Int?,
     val bookAuthors: List<Author>?
-) {
+) : Parcelable {
     companion object {
         const val ID = "id"
         const val IMAGE = "image"

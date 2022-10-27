@@ -4,7 +4,6 @@ object ApiConstants {
 
     object Endpoint {
         const val GET_USER = "user"
-
         const val BOOK = "book"
         const val AUTHOR = "author"
         const val GENRE = "genre"
@@ -14,6 +13,7 @@ object ApiConstants {
         const val FORGOT_EMAIL = "forgot_password"
         const val ORDER = "order"
         const val UPDATE_STATUS_BILL = "$ORDER/update_status"
+        const val DISCOUNT = "discount"
     }
 
     object Method {
@@ -27,6 +27,7 @@ object ApiConstants {
         const val DATA = "data"
         const val STATUS = "status"
         const val MESSAGE = "message"
+        const val TIMEZONE = "UTC"
     }
 
     const val CONNECTION_TIME = 5000
@@ -43,6 +44,7 @@ object ApiConstants {
         const val EMAIL = "email"
         const val PAGE = "page"
         const val TYPE = "type"
+        const val REASON = "reason"
     }
 
     object ATTRIBUTE {
@@ -60,8 +62,16 @@ object ApiConstants {
         const val PENDING = 1
         const val ACCEPT = 2
         const val DELIVERY = 3
-        const val SUCCESS = 3
+        const val SUCCESS = 4
         const val DESTROY = 5
+        const val LOST = 6
+    }
+
+    object TYPEOFDISCOUNT{
+        const val RUNNING = 0
+        const val EXPIRED = 1
+        const val DESTROY = 2
+        const val PENDING = 3
     }
 
     object DIALOGCONFIG {

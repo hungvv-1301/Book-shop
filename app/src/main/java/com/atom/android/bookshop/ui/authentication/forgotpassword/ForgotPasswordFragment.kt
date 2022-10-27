@@ -59,7 +59,6 @@ class ForgotPasswordFragment :
         // TODO implement later
     }
 
-
     override fun initView() {
         // TODO implement later
     }
@@ -73,10 +72,6 @@ class ForgotPasswordFragment :
             val email = binding?.textInputLayoutEmail?.editText?.text.toString()
             forgotPresenter.requestForgotPassword(context, email)
         }
-    }
-
-    override fun navigate(action: Int) {
-        // TODO implement later
     }
 
     override fun requestSuccess(message: String?) {

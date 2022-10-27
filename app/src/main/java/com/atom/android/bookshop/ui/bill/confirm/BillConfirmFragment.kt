@@ -1,32 +1,24 @@
-package com.atom.android.bookshop.ui.bill.pending
+package com.atom.android.bookshop.ui.bill.confirm
 
-import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseFragment
 import com.atom.android.bookshop.data.model.Bill
 import com.atom.android.bookshop.data.repository.BillRepository
 import com.atom.android.bookshop.data.source.remote.api.ApiConstants
 import com.atom.android.bookshop.data.source.remote.bill.BillRemoteDataSource
-import com.atom.android.bookshop.databinding.FragmentBillPendingBinding
+import com.atom.android.bookshop.databinding.FragmentBillConfirmBinding
 import com.atom.android.bookshop.ui.bill.BillFragment
-import com.atom.android.bookshop.ui.bill.confirm.ListAdapterBillConfirm
 import com.atom.android.bookshop.ui.bill.detail.BillDetailFragment
-import com.atom.android.bookshop.ui.main.MainActivity
 import com.atom.android.bookshop.utils.toast
-import kotlin.math.log
 
-class BillPendingFragment :
-    BaseFragment<FragmentBillPendingBinding>(FragmentBillPendingBinding::inflate),
-    BillPendingContract.View {
+class BillConfirmFragment :
+    BaseFragment<FragmentBillConfirmBinding>(FragmentBillConfirmBinding::inflate),
+    BillConfirmContract.View {
 
     private var currentPage = 1
-    private val billPendingPresenter by lazy {
-        BillPendingPresenter.getInstance(
+    private val billConfirmPresenter by lazy {
+        BillConfirmPresenter.getInstance(
             BillRepository.getInstance(
                 BillRemoteDataSource.getInstance()
             ),
@@ -34,31 +26,31 @@ class BillPendingFragment :
         )
     }
 
-    private val listAdapter = ListAdapterBillPending { bill, action ->
+    private val listAdapter = ListAdapterBillConfirm { bill, action ->
         when (action) {
-            Bill.ACTION_CONFIRM -> billPendingPresenter.confirmBill(context, bill)
-            Bill.ACTION_CANCEL -> billPendingPresenter.destroyBill(context, bill)
+            Bill.ACTION_CONFIRM -> billConfirmPresenter.confirmShippingBill(context, bill)
+            Bill.ACTION_CANCEL -> billConfirmPresenter.destroyBill(context, bill)
             Bill.ACTION_ITEM -> navigateToDetailsFragment(bill)
         }
     }
 
     override fun initData() {
-        billPendingPresenter.getBillPending(context, currentPage)
+        billConfirmPresenter.getBillConfirm(context, currentPage)
     }
 
     override fun initView() {
-        binding?.recyclerviewBillPending?.adapter = listAdapter
+        binding?.recyclerviewBillConfirm?.adapter = listAdapter
     }
 
     override fun initEvent() {
-        listAdapter.loadMore(binding?.recyclerviewBillPending) {
+        listAdapter.loadMore(binding?.recyclerviewBillConfirm) {
             currentPage += 1
             binding?.progressLoadingMore?.isVisible = true
-            billPendingPresenter.getBillPending(context, currentPage)
+            billConfirmPresenter.getBillConfirm(context, currentPage)
         }
     }
 
-    override fun getBillPendingSuccess(bill: List<Bill>) {
+    override fun getBillConfirmSuccess(bill: List<Bill>) {
         if (listAdapter.currentList.isEmpty() && bill.isEmpty()) {
             visibleError()
             binding?.textViewGetBillFailed?.text = context?.getString(R.string.mess_list_bill_empty)
@@ -70,17 +62,17 @@ class BillPendingFragment :
         }
     }
 
-    private fun visibleError() {
-        binding?.apply {
-            textViewGetBillFailed.isVisible = true
-            recyclerviewBillPending.isVisible = false
-            progressLoadingMore.isVisible = false
-        }
-    }
-
-    override fun getBillPendingFailed(message: String?) {
+    override fun getBillConfirmFailed(message: String?) {
         visibleError()
         binding?.textViewGetBillFailed?.text = context?.getString(R.string.text_get_bill_failed)
+    }
+
+    private fun visibleError() {
+        binding?.apply {
+            textViewGetBillFailed?.isVisible = true
+            recyclerviewBillConfirm?.isVisible = false
+            progressLoadingMore?.isVisible = false
+        }
     }
 
     override fun requestFailed(message: String?) {
@@ -90,7 +82,7 @@ class BillPendingFragment :
     override fun requestSuccess(oldBill: Bill, newBill: Bill?, message: String?) {
         newBill?.let {
             val billFragment = parentFragment as BillFragment
-            billFragment.updateStatusBill(it, ApiConstants.TYPEOFBILL.ACCEPT)
+            billFragment.updateStatusBill(it, ApiConstants.TYPEOFBILL.DELIVERY)
         }
         val newList = listAdapter.currentList.toMutableList()
         newList.remove(oldBill)
@@ -105,7 +97,11 @@ class BillPendingFragment :
             ?.addToBackStack(null)?.commit()
     }
 
+    fun updateNewBill(bill: Bill) {
+        listAdapter.addItem(bill)
+    }
+
     companion object {
-        const val NAME = "Đơn chờ"
+        const val NAME = "Chuẩn bị"
     }
 }

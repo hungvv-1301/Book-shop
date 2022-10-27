@@ -36,9 +36,11 @@ class BillRemoteDataSource : IBillDataSource.Remote {
         token: String?,
         idBill: Int,
         status: Int,
+        reason: String?,
         callback: IRequestCallback<ResponseObject<Bill>>
     ) {
-        val dataForm = "?${Bill.ID}=$idBill&${ApiConstants.FIELD.TYPE}=$status"
+        val dataForm =
+            "?${Bill.ID}=$idBill&${ApiConstants.FIELD.TYPE}=$status&${ApiConstants.FIELD.REASON}=$reason"
         remoteExecuteCallAPI<ResponseObject<Bill>>(
             dataForm,
             token = token,
@@ -118,5 +120,4 @@ class BillRemoteDataSource : IBillDataSource.Remote {
             instance ?: BillRemoteDataSource().also { instance = it }
         }
     }
-
 }

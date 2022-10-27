@@ -38,10 +38,6 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
         }
     }
 
-    override fun navigate(action: Int) {
-        // TODO implement later
-    }
-
     private fun navigateAuthenticationActivity() {
         val intent = Intent(activity, AuthenticationActivity::class.java)
         startActivity(intent)

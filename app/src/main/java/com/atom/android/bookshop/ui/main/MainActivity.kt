@@ -1,6 +1,7 @@
 package com.atom.android.bookshop.ui.main
 
 import android.content.Intent
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseActivity
@@ -99,6 +100,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val intent = Intent(this@MainActivity, AuthenticationActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun setVisibleNavigationBar(isVisible: Boolean) {
+        binding?.navView?.isVisible = isVisible
     }
 
     companion object {
