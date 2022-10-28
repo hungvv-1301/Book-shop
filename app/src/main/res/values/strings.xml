@@ -4,10 +4,7 @@
     <string name="title_discount">Mã voucher</string>
     <string name="title_bill">Đơn hàng</string>
     <string name="title_account">Tài khoản</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="error_call_api">Có lỗi xảy ra vui lòng thử lại!</string>
     <string name="text_login_now">đăng nhập\nngay</string>
     <string name="text_password">Mật khẩu</string>
@@ -100,6 +97,4 @@
     <string name="title_alert_lost_network">Lỗi mạng</string>
     <string name="mess_alert_lost_network">Bạn đã mất kết nối mạng !</string>
     <string name="text_connected_internet">Đã kết nối mạng</string>
-
-
 </resources>

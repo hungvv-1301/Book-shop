@@ -10,6 +10,7 @@ import com.atom.android.bookshop.data.source.remote.bill.BillRemoteDataSource
 import com.atom.android.bookshop.databinding.FragmentBillPendingBinding
 import com.atom.android.bookshop.ui.bill.BillFragment
 import com.atom.android.bookshop.ui.bill.detail.BillDetailFragment
+import com.atom.android.bookshop.utils.Constants
 import com.atom.android.bookshop.utils.SharedPreferenceUtils
 import com.atom.android.bookshop.utils.navigate
 import com.atom.android.bookshop.utils.toast
@@ -54,31 +55,37 @@ class BillPendingFragment :
             binding?.progressLoadingMore?.isVisible = true
             billPendingPresenter.getBillPending(context, currentPage)
         }
+        binding?.swiperefreshlayout?.setOnRefreshListener {
+            currentPage = Constants.DEFAULT_PAGE
+            listAdapter.submitList(mutableListOf())
+            billPendingPresenter.getBillPending(context, currentPage)
+        }
     }
 
     override fun getBillPendingSuccess(bill: List<Bill>) {
         if (listAdapter.currentList.isEmpty() && bill.isEmpty()) {
-            visibleError()
+            visibleScreen(true)
             binding?.textViewGetBillFailed?.text = context?.getString(R.string.mess_list_bill_empty)
         } else {
             val newList = listAdapter.currentList.toMutableList()
             newList.addAll(bill)
             listAdapter.submitList(newList)
-            binding?.progressLoadingMore?.isVisible = false
+            visibleScreen(false)
         }
     }
 
-    private fun visibleError() {
+    private fun visibleScreen(isError: Boolean) {
         binding?.apply {
-            textViewGetBillFailed.isVisible = true
-            recyclerviewBillPending.isVisible = false
+            textViewGetBillFailed.isVisible = isError
+            recyclerviewBillPending.isVisible = !isError
             progressLoadingMore.isVisible = false
+            swiperefreshlayout.isRefreshing = false
         }
     }
 
     override fun getBillPendingFailed(message: String?) {
         context?.toast(message)
-        visibleError()
+        visibleScreen(isError = true)
         binding?.textViewGetBillFailed?.text = context?.getString(R.string.text_get_bill_failed)
     }
 
@@ -95,6 +102,7 @@ class BillPendingFragment :
         newList.remove(oldBill)
         listAdapter.submitList(newList)
         context?.toast(message)
+        visibleScreen(false)
     }
 
     companion object {

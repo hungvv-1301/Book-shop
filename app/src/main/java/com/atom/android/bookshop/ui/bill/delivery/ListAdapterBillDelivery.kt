@@ -25,11 +25,11 @@ class ListAdapterBillDelivery(
             super.binView(item)
             binding.apply {
                 val context = binding.root.context
-                titleBill.text = binding.root.context.getString(
+                textViewTitleBill.text = binding.root.context.getString(
                     R.string.text_title_bill,
                     item.id, item.createdAt
                 )
-                contentBill.text = context.getString(
+                textViewContentBill.text = context.getString(
                     R.string.text_content_bill,
                     item.orderLines[Constants.FIRST_POSITION].book.title,
                     item.totalItem()

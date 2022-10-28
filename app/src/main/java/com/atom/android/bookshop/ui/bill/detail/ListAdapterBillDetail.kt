@@ -39,7 +39,7 @@ class ListAdapterBillDetail(
         override fun binView(item: OrderLine) {
             super.binView(item)
             binding.apply {
-                imgItem.loadImage(Uri.parse(item.book.image))
+                imageItem.loadImage(Uri.parse(item.book.image))
                 textViewPriceItem.text = item.price.toString().convertStrToMoney()
                 textViewAmountItem.text = binding.root.context.getString(
                     R.string.text_amount,
