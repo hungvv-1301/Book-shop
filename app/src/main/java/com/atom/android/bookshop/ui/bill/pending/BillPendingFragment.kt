@@ -1,11 +1,6 @@
 package com.atom.android.bookshop.ui.bill.pending
 
-import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.atom.android.bookshop.R
 import com.atom.android.bookshop.base.BaseFragment
 import com.atom.android.bookshop.data.model.Bill
@@ -14,11 +9,10 @@ import com.atom.android.bookshop.data.source.remote.api.ApiConstants
 import com.atom.android.bookshop.data.source.remote.bill.BillRemoteDataSource
 import com.atom.android.bookshop.databinding.FragmentBillPendingBinding
 import com.atom.android.bookshop.ui.bill.BillFragment
-import com.atom.android.bookshop.ui.bill.confirm.ListAdapterBillConfirm
 import com.atom.android.bookshop.ui.bill.detail.BillDetailFragment
-import com.atom.android.bookshop.ui.main.MainActivity
+import com.atom.android.bookshop.utils.SharedPreferenceUtils
+import com.atom.android.bookshop.utils.navigate
 import com.atom.android.bookshop.utils.toast
-import kotlin.math.log
 
 class BillPendingFragment :
     BaseFragment<FragmentBillPendingBinding>(FragmentBillPendingBinding::inflate),
@@ -30,7 +24,7 @@ class BillPendingFragment :
             BillRepository.getInstance(
                 BillRemoteDataSource.getInstance()
             ),
-            this
+            SharedPreferenceUtils.getInstance(context)
         )
     }
 
@@ -38,11 +32,15 @@ class BillPendingFragment :
         when (action) {
             Bill.ACTION_CONFIRM -> billPendingPresenter.confirmBill(context, bill)
             Bill.ACTION_CANCEL -> billPendingPresenter.destroyBill(context, bill)
-            Bill.ACTION_ITEM -> navigateToDetailsFragment(bill)
+            Bill.ACTION_ITEM -> {
+                val fragmentDetail = BillDetailFragment.newInstance(bill)
+                activity?.navigate(fragmentDetail)
+            }
         }
     }
 
     override fun initData() {
+        billPendingPresenter.setView(this)
         billPendingPresenter.getBillPending(context, currentPage)
     }
 
@@ -79,6 +77,7 @@ class BillPendingFragment :
     }
 
     override fun getBillPendingFailed(message: String?) {
+        context?.toast(message)
         visibleError()
         binding?.textViewGetBillFailed?.text = context?.getString(R.string.text_get_bill_failed)
     }
@@ -96,13 +95,6 @@ class BillPendingFragment :
         newList.remove(oldBill)
         listAdapter.submitList(newList)
         context?.toast(message)
-    }
-
-    private fun navigateToDetailsFragment(bill: Bill) {
-        val fragmentDetail = BillDetailFragment.newInstance(bill)
-        val beginTransaction = activity?.supportFragmentManager?.beginTransaction()
-        beginTransaction?.replace(R.id.fragment_container, fragmentDetail)
-            ?.addToBackStack(null)?.commit()
     }
 
     companion object {

@@ -10,40 +10,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/_6dp"
-        app:cardCornerRadius="@dimen/corners_5dp"
-        app:cardUseCompatPadding="true">
+        app:cardCornerRadius="@dimen/corners_5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
-            android:padding="@dimen/margin_12dp">
+            android:padding="@dimen/margin_8dp">
 
             <ImageView
-                android:id="@+id/image_bill"
-                android:layout_width="@dimen/size_image_bill"
-                android:layout_height="@dimen/size_image_bill"
+                android:id="@+id/image_discount"
+                android:layout_width="@dimen/size_image_order_line"
+                android:layout_height="@dimen/size_image_order_line"
                 android:elevation="@dimen/_2dp"
                 android:src="@drawable/ic_book_logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/title_bill"
+                android:id="@+id/text_view_title_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_12dp"
                 android:layout_marginBottom="@dimen/margin_4dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textSize="@dimen/text_size_20sp"
+                android:textSize="@dimen/text_size_16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/image_bill"
+                app:layout_constraintStart_toEndOf="@id/image_discount"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/text_some_thing" />
 
             <TextView
-                android:id="@+id/content_bill"
+                android:id="@+id/text_view_content_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_12dp"
@@ -52,35 +51,36 @@
                 android:maxLines="1"
                 android:textSize="@dimen/text_size_16sp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toEndOf="@id/image_bill"
-                app:layout_constraintTop_toBottomOf="@id/title_bill"
+                android:textColor="@color/red"
+                app:layout_constraintStart_toEndOf="@id/image_discount"
+                app:layout_constraintTop_toBottomOf="@id/text_view_title_discount"
                 tools:text="@string/text_some_thing" />
 
             <TextView
-                android:id="@+id/start_time"
+                android:id="@+id/text_view_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_12dp"
                 android:layout_marginBottom="@dimen/margin_4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="@dimen/text_size_14sp"
+                android:textSize="@dimen/text_size_12sp"
                 android:textStyle="italic"
-                app:layout_constraintStart_toEndOf="@id/image_bill"
-                app:layout_constraintTop_toBottomOf="@id/content_bill"
+                app:layout_constraintStart_toEndOf="@id/image_discount"
+                app:layout_constraintTop_toBottomOf="@id/text_view_content_discount"
                 tools:text="@string/text_some_thing" />
 
             <TextView
-                android:id="@+id/end_time"
+                android:id="@+id/text_view_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="@dimen/text_size_14sp"
+                android:textSize="@dimen/text_size_12sp"
                 android:textStyle="italic"
-                app:layout_constraintStart_toEndOf="@id/image_bill"
-                app:layout_constraintTop_toBottomOf="@id/start_time"
+                app:layout_constraintStart_toEndOf="@id/image_discount"
+                app:layout_constraintTop_toBottomOf="@id/text_view_start_time"
                 tools:text="@string/text_some_thing" />
 
             <TextView
@@ -88,11 +88,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_12dp"
                 android:text="@string/text_edit"
-                android:textSize="@dimen/text_size_14sp"
+                android:textSize="@dimen/text_size_12sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/end_time" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_end_time" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

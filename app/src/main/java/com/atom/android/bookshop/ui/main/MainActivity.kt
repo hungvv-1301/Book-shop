@@ -13,6 +13,8 @@ import com.atom.android.bookshop.ui.authentication.AuthenticationActivity
 import com.atom.android.bookshop.ui.bill.BillFragment
 import com.atom.android.bookshop.ui.discount.DiscountFragment
 import com.atom.android.bookshop.ui.home.HomeFragment
+import com.atom.android.bookshop.utils.registerNetwork
+import com.atom.android.bookshop.utils.showAlertDialogNetwork
 import com.atom.android.bookshop.utils.toast
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
@@ -22,8 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         MainPresenter.getInstance(
             MainRepository.getInstance(
                 MainRemoteDataSource.getInstance()
-            ),
-            this
+            )
         )
     }
 
@@ -32,6 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun initData() {
+        mainPresenter.setView(this)
         mainPresenter.checkToken(this)
     }
 
@@ -44,6 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             this@MainActivity,
             listOf<Fragment>(HomeFragment(), DiscountFragment(), BillFragment(), AccountFragment())
         )
+        binding?.viewPagerMain?.isUserInputEnabled = false
         binding?.navView?.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
