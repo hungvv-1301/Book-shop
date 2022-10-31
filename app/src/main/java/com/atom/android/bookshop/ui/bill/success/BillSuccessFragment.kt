@@ -8,6 +8,7 @@ import com.atom.android.bookshop.data.repository.BillRepository
 import com.atom.android.bookshop.data.source.remote.bill.BillRemoteDataSource
 import com.atom.android.bookshop.databinding.FragmentBillSuccessBinding
 import com.atom.android.bookshop.ui.bill.detail.BillDetailFragment
+import com.atom.android.bookshop.utils.Constants
 import com.atom.android.bookshop.utils.SharedPreferenceUtils
 import com.atom.android.bookshop.utils.toast
 
@@ -46,17 +47,22 @@ class BillSuccessFragment :
             binding?.progressLoadingMore?.isVisible = true
             billSuccessPresenter.getBillSuccess(context, currentPage)
         }
+        binding?.swiperefreshlayout?.setOnRefreshListener {
+            currentPage = Constants.DEFAULT_PAGE
+            listAdapter.submitList(mutableListOf())
+            billSuccessPresenter.getBillSuccess(context, currentPage)
+        }
     }
 
     override fun getBillSuccess(bill: List<Bill>) {
         if (listAdapter.currentList.isEmpty() && bill.isEmpty()) {
-            visibleError()
+            visibleScreen(true)
             binding?.textViewGetBillFailed?.text = context?.getString(R.string.mess_list_bill_empty)
         } else {
             val newList = listAdapter.currentList.toMutableList()
             newList.addAll(bill)
             listAdapter.submitList(newList)
-            binding?.progressLoadingMore?.isVisible = false
+            visibleScreen(false)
         }
     }
 
@@ -67,21 +73,23 @@ class BillSuccessFragment :
             ?.addToBackStack(null)?.commit()
     }
 
-    private fun visibleError() {
+    private fun visibleScreen(isError: Boolean) {
         binding?.apply {
-            textViewGetBillFailed?.isVisible = true
-            recyclerviewBillSuccess?.isVisible = false
-            progressLoadingMore?.isVisible = false
+            textViewGetBillFailed.isVisible = isError
+            recyclerviewBillSuccess.isVisible = !isError
+            progressLoadingMore.isVisible = false
+            swiperefreshlayout.isRefreshing = false
         }
     }
 
     override fun getBillFailed(message: String?) {
         context?.toast(message)
-        visibleError()
+        visibleScreen(true)
     }
 
     fun updateNewBill(bill: Bill) {
         listAdapter.addItem(bill)
+        visibleScreen(false)
     }
 
     companion object {

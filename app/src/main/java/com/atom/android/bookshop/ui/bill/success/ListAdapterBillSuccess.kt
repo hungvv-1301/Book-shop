@@ -29,11 +29,11 @@ class ListAdapterBillSuccess(
             super.binView(item)
             binding.apply {
                 val context = root.context
-                titleBill.text = context.getString(
+                textViewTitleBill.text = context.getString(
                     R.string.text_title_bill,
                     item.id, item.createdAt
                 )
-                contentBill.text =
+                textViewContentBill.text =
                     context.getString(
                         R.string.text_content_bill,
                         item.orderLines[Constants.FIRST_POSITION].book.title,
@@ -51,7 +51,7 @@ class ListAdapterBillSuccess(
                     R.string.text_time_done,
                     item.getTimeDone()
                 )
-                titleTotalMoney.text = item.totalBill().toString().convertStrToMoney()
+                textViewTitleTotalMoney.text = item.totalBill().toString().convertStrToMoney()
                 textViewDetail.setOnClickListener {
                     onClick(item)
                 }

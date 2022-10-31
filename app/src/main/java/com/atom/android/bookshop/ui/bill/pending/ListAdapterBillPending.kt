@@ -26,7 +26,7 @@ class ListAdapterBillPending(
             super.binView(item)
             binding.apply {
                 val context = binding.root.context
-                titleBill.text = context.getString(
+                textViewTitleBill.text = context.getString(
                     R.string.text_title_bill,
                     item.id, item.createdAt
                 )
@@ -35,7 +35,7 @@ class ListAdapterBillPending(
                     item.orderLines[Constants.FIRST_POSITION].book.title,
                     item.totalItem()
                 )
-                titleTotalMoney.text = item.totalBill().toString().convertStrToMoney()
+                textViewTitleTotalMoney.text = item.totalBill().toString().convertStrToMoney()
                 textViewConfirm.setOnClickListener {
                     onClick(item, Bill.ACTION_CONFIRM)
                 }

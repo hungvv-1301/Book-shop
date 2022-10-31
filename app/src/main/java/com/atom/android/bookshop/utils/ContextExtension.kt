@@ -17,6 +17,7 @@ import android.text.style.RelativeSizeSpan
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.atom.android.bookshop.R
+import com.atom.android.bookshop.ui.BookApplication
 import java.util.Calendar
 import java.util.Locale
 
@@ -127,13 +128,13 @@ fun Context.registerNetwork() {
         object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                NetworkUtils.isConnectedInternet = true
+                BookApplication.isConnectedInternet = true
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
                 toast(R.string.mess_alert_lost_network)
-                NetworkUtils.isConnectedInternet = false
+                BookApplication.isConnectedInternet = false
             }
         })
 }
